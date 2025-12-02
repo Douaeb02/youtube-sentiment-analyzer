@@ -1,0 +1,22 @@
+# Environnements
+venv/
+env/
+
+# Données
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Modèles
+models/*.joblib
+
+# Logs
+logs/*
+
+# Fichiers Python inutiles
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
