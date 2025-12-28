@@ -5,8 +5,8 @@ env/
 # Données
 data/raw/*
 data/processed/*
-!data/raw/.gitkeep
-!data/processed/.gitkeep
+data/raw/.gitkeep
+data/processed/.gitkeep
 
 # Modèles
 models/*.joblib
@@ -20,3 +20,83 @@ __pycache__/
 
 # OS
 .DS_Store
+=======
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Data files (ne pas commiter les données brutes volumineuses)
+data/raw/*.csv
+data/processed/*.csv
+*.pkl
+
+# Models (les modèles peuvent être gros)
+models/*.joblib
+models/*.pkl
+models/*.h5
+models/*.pt
+
+# Logs
+logs/*.log
+*.log
+
+# Environment variables
+.env
+.env.local
+
+# Test coverage
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+
+# Docker
+*.tar
+.dockerignore
+
+# Temporary files
+*.tmp
+temp/
+tmp/
