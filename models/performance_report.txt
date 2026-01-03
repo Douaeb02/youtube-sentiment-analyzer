@@ -1,0 +1,26 @@
+======================================================================
+RAPPORT DE PERFORMANCE DU MODÈLE DE SENTIMENT
+======================================================================
+
+Type de modèle: LogisticRegression
+Temps d'entraînement: 2.85s
+
+MÉTRIQUES DE PERFORMANCE
+----------------------------------------------------------------------
+Train Accuracy:  0.9171 (91.71%)
+Test Accuracy:   0.8601 (86.01%)
+Avg F1-Score:    0.8506
+
+MÉTRIQUES PAR CLASSE
+----------------------------------------------------------------------
+Classe          Precision    Recall       F1-Score    
+----------------------------------------------------------------------
+Négatif (-1)        0.7832      0.7917      0.7874
+Neutre (0)          0.8456      0.9556      0.8972
+Positif (1)         0.9207      0.8194      0.8671
+
+PERFORMANCE D'INFÉRENCE
+----------------------------------------------------------------------
+Temps par commentaire: 0.00ms
+Temps pour 50 commentaires: 0.15ms
+Objectif (<100ms): ✅ ATTEINT
