@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Sentiment Analyzer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="header-content">
+      <h1>🎬 Sentiment Analyzer</h1>
+      <button id="darkModeToggle" class="icon-button" title="Mode sombre">
+        🌙
+      </button>
+    </div>
+  </div>
+
+  <!-- Status Bar -->
+  <div id="statusBar" class="status-bar hidden">
+    <span id="statusText"></span>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    
+    <!-- Video Info -->
+    <div id="videoInfo" class="video-info hidden">
+      <h3 id="videoTitle"></h3>
+      <p id="videoChannel"></p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button id="analyzeBtn" class="btn btn-primary">
+        📊 Analyser les commentaires
+      </button>
+      <button id="loadMoreBtn" class="btn btn-secondary">
+        📜 Charger plus de commentaires
+      </button>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading hidden">
+      <div class="spinner"></div>
+      <p>Analyse en cours...</p>
+    </div>
+
+    <!-- Statistics -->
+    <div id="statistics" class="statistics hidden">
+      <h3>📊 Statistiques</h3>
+      
+      <div class="stat-cards">
+        <div class="stat-card positive">
+          <div class="stat-icon">😊</div>
+          <div class="stat-content">
+            <div class="stat-value" id="positiveCount">0</div>
+            <div class="stat-label">Positifs</div>
+            <div class="stat-percent" id="positivePercent">0%</div>
+          </div>
+        </div>
+        
+        <div class="stat-card neutral">
+          <div class="stat-icon">😐</div>
+          <div class="stat-content">
+            <div class="stat-value" id="neutralCount">0</div>
+            <div class="stat-label">Neutres</div>
+            <div class="stat-percent" id="neutralPercent">0%</div>
+          </div>
+        </div>
+        
+        <div class="stat-card negative">
+          <div class="stat-icon">😞</div>
+          <div class="stat-content">
+            <div class="stat-value" id="negativeCount">0</div>
+            <div class="stat-label">Négatifs</div>
+            <div class="stat-percent" id="negativePercent">0%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Bars -->
+      <div class="progress-bars">
+        <div class="progress-item">
+          <span class="progress-label">😊 Positif</span>
+          <div class="progress-bar">
+            <div id="positiveBar" class="progress-fill positive" style="width: 0%"></div>
+          </div>
+          <span id="positiveBarPercent" class="progress-value">0%</span>
+        </div>
+        
+        <div class="progress-item">
+          <span class="progress-label">😐 Neutre</span>
+          <div class="progress-bar">
+            <div id="neutralBar" class="progress-fill neutral" style="width: 0%"></div>
+          </div>
+          <span id="neutralBarPercent" class="progress-value">0%</span>
+        </div>
+        
+        <div class="progress-item">
+          <span class="progress-label">😞 Négatif</span>
+          <div class="progress-bar">
+            <div id="negativeBar" class="progress-fill negative" style="width: 0%"></div>
+          </div>
+          <span id="negativeBarPercent" class="progress-value">0%</span>
+        </div>
+      </div>
+
+      <div class="stat-footer">
+        <span>Total: <strong id="totalComments">0</strong> commentaires</span>
+        <span>Confiance moyenne: <strong id="avgConfidence">0%</strong></span>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div id="filters" class="filters hidden">
+      <h3>🔍 Filtres</h3>
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">Tous</button>
+        <button class="filter-btn" data-filter="positive">😊 Positifs</button>
+        <button class="filter-btn" data-filter="neutral">😐 Neutres</button>
+        <button class="filter-btn" data-filter="negative">😞 Négatifs</button>
+      </div>
+    </div>
+
+    <!-- Comments List -->
+    <div id="commentsContainer" class="comments-container hidden">
+      <div class="comments-header">
+        <h3>💬 Commentaires analysés</h3>
+        <button id="copyBtn" class="btn btn-small" title="Copier les résultats">
+          📋 Copier
+        </button>
+      </div>
+      <div id="commentsList" class="comments-list">
+        <!-- Les commentaires seront ajoutés ici dynamiquement -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="api-status">
+      <span id="apiStatus">🔴 API déconnectée</span>
+    </div>
+    <div class="footer-actions">
+      <button id="settingsBtn" class="icon-button" title="Paramètres">⚙️</button>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settingsModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>⚙️ Paramètres</h2>
+        <button id="closeModal" class="close-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="setting-item">
+          <label>
+            <input type="radio" name="apiType" value="local" checked>
+            API Locale (développement)
+          </label>
+          <small>http://localhost:8000</small>
+        </div>
+        <div class="setting-item">
+          <label>
+            <input type="radio" name="apiType" value="production">
+            API Production (Hugging Face)
+          </label>
+          <small>'https://douae8bz-youtube-sentiment-analyzer.hf.space'</small>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="saveSettings" class="btn btn-primary">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
